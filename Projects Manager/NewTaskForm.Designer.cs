@@ -49,7 +49,6 @@
             this.txtNewTaskDescription.Name = "txtNewTaskDescription";
             this.txtNewTaskDescription.Size = new System.Drawing.Size(265, 161);
             this.txtNewTaskDescription.TabIndex = 1;
-            this.txtNewTaskDescription.Text = "Task Description";
             // 
             // txtNewTaskHours
             // 
@@ -57,7 +56,7 @@
             this.txtNewTaskHours.Name = "txtNewTaskHours";
             this.txtNewTaskHours.Size = new System.Drawing.Size(265, 20);
             this.txtNewTaskHours.TabIndex = 2;
-            this.txtNewTaskHours.Text = "Task Estimated Hours";
+            this.txtNewTaskHours.Text = "0.25";
             // 
             // btnCreateTask
             // 

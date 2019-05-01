@@ -30,10 +30,22 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabProjects = new System.Windows.Forms.TabPage();
+            this.groupActions = new System.Windows.Forms.GroupBox();
+            this.btnNewProject = new System.Windows.Forms.Button();
+            this.btnNewTask = new System.Windows.Forms.Button();
+            this.groupDailyWeekly = new System.Windows.Forms.GroupBox();
+            this.listDaily = new System.Windows.Forms.ListBox();
+            this.listWeekly = new System.Windows.Forms.ListBox();
             this.groupTaskInfo = new System.Windows.Forms.GroupBox();
+            this.btnRemoveFromWeekly = new System.Windows.Forms.Button();
+            this.btnAddToWeekly = new System.Windows.Forms.Button();
+            this.btnRemoveFromDaily = new System.Windows.Forms.Button();
             this.labelStatic2 = new System.Windows.Forms.Label();
             this.labelStatic1 = new System.Windows.Forms.Label();
             this.txtTaskEstimatedHours = new System.Windows.Forms.TextBox();
+            this.btnMarkAsDone = new System.Windows.Forms.Button();
+            this.btnAddToDaily = new System.Windows.Forms.Button();
+            this.btnMarkAsToDo = new System.Windows.Forms.Button();
             this.txtTaskSpentHours = new System.Windows.Forms.TextBox();
             this.btnSaveTask = new System.Windows.Forms.Button();
             this.txtTaskDescription = new System.Windows.Forms.TextBox();
@@ -43,42 +55,24 @@
             this.labelProjectHours = new System.Windows.Forms.Label();
             this.labelProjectTasksDone = new System.Windows.Forms.Label();
             this.labelProjectPercentage = new System.Windows.Forms.Label();
-            this.labelProjectTasksDoing = new System.Windows.Forms.Label();
             this.labelProjectTasksToDo = new System.Windows.Forms.Label();
             this.btnSaveProject = new System.Windows.Forms.Button();
             this.txtProjectDescription = new System.Windows.Forms.TextBox();
             this.txtProjectName = new System.Windows.Forms.TextBox();
-            this.groupTasks = new System.Windows.Forms.GroupBox();
-            this.btnMarkAsDone = new System.Windows.Forms.Button();
-            this.btnMarkAsDoing = new System.Windows.Forms.Button();
-            this.btnMarkAsToDo = new System.Windows.Forms.Button();
-            this.groupDone = new System.Windows.Forms.GroupBox();
-            this.listDone = new System.Windows.Forms.ListBox();
-            this.groupDoing = new System.Windows.Forms.GroupBox();
-            this.listDoing = new System.Windows.Forms.ListBox();
-            this.btnAddToDaily = new System.Windows.Forms.Button();
-            this.btnNewTask = new System.Windows.Forms.Button();
-            this.groupToDo = new System.Windows.Forms.GroupBox();
-            this.listToDo = new System.Windows.Forms.ListBox();
-            this.groupProjects = new System.Windows.Forms.GroupBox();
+            this.groupMain = new System.Windows.Forms.GroupBox();
             this.listProjects = new System.Windows.Forms.ListBox();
-            this.btnNewProject = new System.Windows.Forms.Button();
-            this.groupDaily = new System.Windows.Forms.GroupBox();
-            this.btnRemoveDaily = new System.Windows.Forms.Button();
-            this.listDaily = new System.Windows.Forms.ListBox();
+            this.listToDo = new System.Windows.Forms.ListBox();
             this.tabSkills = new System.Windows.Forms.TabPage();
             this.tabCalendar = new System.Windows.Forms.TabPage();
+            this.btnAddChores = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabProjects.SuspendLayout();
+            this.groupActions.SuspendLayout();
+            this.groupDailyWeekly.SuspendLayout();
             this.groupTaskInfo.SuspendLayout();
             this.groupProjectInfo.SuspendLayout();
             this.groupProjectInfoMini.SuspendLayout();
-            this.groupTasks.SuspendLayout();
-            this.groupDone.SuspendLayout();
-            this.groupDoing.SuspendLayout();
-            this.groupToDo.SuspendLayout();
-            this.groupProjects.SuspendLayout();
-            this.groupDaily.SuspendLayout();
+            this.groupMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -89,44 +83,147 @@
             this.tabControl1.Location = new System.Drawing.Point(2, 1);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1117, 801);
+            this.tabControl1.Size = new System.Drawing.Size(1162, 591);
             this.tabControl1.TabIndex = 0;
             // 
             // tabProjects
             // 
+            this.tabProjects.BackColor = System.Drawing.Color.SlateBlue;
+            this.tabProjects.Controls.Add(this.groupActions);
+            this.tabProjects.Controls.Add(this.groupDailyWeekly);
             this.tabProjects.Controls.Add(this.groupTaskInfo);
             this.tabProjects.Controls.Add(this.groupProjectInfo);
-            this.tabProjects.Controls.Add(this.groupTasks);
-            this.tabProjects.Controls.Add(this.groupProjects);
-            this.tabProjects.Controls.Add(this.groupDaily);
+            this.tabProjects.Controls.Add(this.groupMain);
             this.tabProjects.Location = new System.Drawing.Point(4, 22);
             this.tabProjects.Name = "tabProjects";
             this.tabProjects.Padding = new System.Windows.Forms.Padding(3);
-            this.tabProjects.Size = new System.Drawing.Size(1109, 775);
+            this.tabProjects.Size = new System.Drawing.Size(1154, 565);
             this.tabProjects.TabIndex = 0;
             this.tabProjects.Text = "Projects";
-            this.tabProjects.UseVisualStyleBackColor = true;
+            // 
+            // groupActions
+            // 
+            this.groupActions.Controls.Add(this.btnAddChores);
+            this.groupActions.Controls.Add(this.btnNewProject);
+            this.groupActions.Controls.Add(this.btnNewTask);
+            this.groupActions.ForeColor = System.Drawing.SystemColors.Control;
+            this.groupActions.Location = new System.Drawing.Point(927, 6);
+            this.groupActions.Name = "groupActions";
+            this.groupActions.Size = new System.Drawing.Size(219, 358);
+            this.groupActions.TabIndex = 8;
+            this.groupActions.TabStop = false;
+            this.groupActions.Text = "Actions";
+            // 
+            // btnNewProject
+            // 
+            this.btnNewProject.BackColor = System.Drawing.Color.Tomato;
+            this.btnNewProject.Location = new System.Drawing.Point(6, 18);
+            this.btnNewProject.Name = "btnNewProject";
+            this.btnNewProject.Size = new System.Drawing.Size(207, 47);
+            this.btnNewProject.TabIndex = 6;
+            this.btnNewProject.Text = "New Project";
+            this.btnNewProject.UseVisualStyleBackColor = false;
+            this.btnNewProject.Click += new System.EventHandler(this.btnNewProject_Click_1);
+            // 
+            // btnNewTask
+            // 
+            this.btnNewTask.BackColor = System.Drawing.Color.Tomato;
+            this.btnNewTask.Location = new System.Drawing.Point(6, 71);
+            this.btnNewTask.Name = "btnNewTask";
+            this.btnNewTask.Size = new System.Drawing.Size(207, 47);
+            this.btnNewTask.TabIndex = 4;
+            this.btnNewTask.Text = "New Task";
+            this.btnNewTask.UseVisualStyleBackColor = false;
+            this.btnNewTask.Click += new System.EventHandler(this.btnNewTask_Click);
+            // 
+            // groupDailyWeekly
+            // 
+            this.groupDailyWeekly.Controls.Add(this.listDaily);
+            this.groupDailyWeekly.Controls.Add(this.listWeekly);
+            this.groupDailyWeekly.Location = new System.Drawing.Point(3, 267);
+            this.groupDailyWeekly.Name = "groupDailyWeekly";
+            this.groupDailyWeekly.Size = new System.Drawing.Size(438, 294);
+            this.groupDailyWeekly.TabIndex = 7;
+            this.groupDailyWeekly.TabStop = false;
+            // 
+            // listDaily
+            // 
+            this.listDaily.FormattingEnabled = true;
+            this.listDaily.Location = new System.Drawing.Point(9, 17);
+            this.listDaily.Name = "listDaily";
+            this.listDaily.Size = new System.Drawing.Size(207, 264);
+            this.listDaily.TabIndex = 1;
+            this.listDaily.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listDaily_MouseClick);
+            // 
+            // listWeekly
+            // 
+            this.listWeekly.FormattingEnabled = true;
+            this.listWeekly.Location = new System.Drawing.Point(222, 17);
+            this.listWeekly.Name = "listWeekly";
+            this.listWeekly.Size = new System.Drawing.Size(207, 264);
+            this.listWeekly.TabIndex = 4;
+            this.listWeekly.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listWeekly_MouseClick);
             // 
             // groupTaskInfo
             // 
+            this.groupTaskInfo.Controls.Add(this.btnRemoveFromWeekly);
+            this.groupTaskInfo.Controls.Add(this.btnAddToWeekly);
+            this.groupTaskInfo.Controls.Add(this.btnRemoveFromDaily);
             this.groupTaskInfo.Controls.Add(this.labelStatic2);
             this.groupTaskInfo.Controls.Add(this.labelStatic1);
             this.groupTaskInfo.Controls.Add(this.txtTaskEstimatedHours);
+            this.groupTaskInfo.Controls.Add(this.btnMarkAsDone);
+            this.groupTaskInfo.Controls.Add(this.btnAddToDaily);
+            this.groupTaskInfo.Controls.Add(this.btnMarkAsToDo);
             this.groupTaskInfo.Controls.Add(this.txtTaskSpentHours);
             this.groupTaskInfo.Controls.Add(this.btnSaveTask);
             this.groupTaskInfo.Controls.Add(this.txtTaskDescription);
             this.groupTaskInfo.Controls.Add(this.txtTaskName);
-            this.groupTaskInfo.Location = new System.Drawing.Point(548, 502);
+            this.groupTaskInfo.ForeColor = System.Drawing.SystemColors.Control;
+            this.groupTaskInfo.Location = new System.Drawing.Point(452, 240);
             this.groupTaskInfo.Name = "groupTaskInfo";
-            this.groupTaskInfo.Size = new System.Drawing.Size(552, 270);
+            this.groupTaskInfo.Size = new System.Drawing.Size(460, 321);
             this.groupTaskInfo.TabIndex = 2;
             this.groupTaskInfo.TabStop = false;
             this.groupTaskInfo.Text = "Task Information";
             // 
+            // btnRemoveFromWeekly
+            // 
+            this.btnRemoveFromWeekly.BackColor = System.Drawing.Color.Tomato;
+            this.btnRemoveFromWeekly.Location = new System.Drawing.Point(229, 180);
+            this.btnRemoveFromWeekly.Name = "btnRemoveFromWeekly";
+            this.btnRemoveFromWeekly.Size = new System.Drawing.Size(207, 47);
+            this.btnRemoveFromWeekly.TabIndex = 23;
+            this.btnRemoveFromWeekly.Text = "Remove From Weekly";
+            this.btnRemoveFromWeekly.UseVisualStyleBackColor = false;
+            this.btnRemoveFromWeekly.Click += new System.EventHandler(this.btnRemoveFromWeekly_Click);
+            // 
+            // btnAddToWeekly
+            // 
+            this.btnAddToWeekly.BackColor = System.Drawing.Color.Tomato;
+            this.btnAddToWeekly.Location = new System.Drawing.Point(229, 131);
+            this.btnAddToWeekly.Name = "btnAddToWeekly";
+            this.btnAddToWeekly.Size = new System.Drawing.Size(207, 47);
+            this.btnAddToWeekly.TabIndex = 22;
+            this.btnAddToWeekly.Text = "Add to Weekly";
+            this.btnAddToWeekly.UseVisualStyleBackColor = false;
+            this.btnAddToWeekly.Click += new System.EventHandler(this.btnAddToWeekly_Click);
+            // 
+            // btnRemoveFromDaily
+            // 
+            this.btnRemoveFromDaily.BackColor = System.Drawing.Color.Tomato;
+            this.btnRemoveFromDaily.Location = new System.Drawing.Point(229, 68);
+            this.btnRemoveFromDaily.Name = "btnRemoveFromDaily";
+            this.btnRemoveFromDaily.Size = new System.Drawing.Size(207, 47);
+            this.btnRemoveFromDaily.TabIndex = 21;
+            this.btnRemoveFromDaily.Text = "Remove From Daily";
+            this.btnRemoveFromDaily.UseVisualStyleBackColor = false;
+            this.btnRemoveFromDaily.Click += new System.EventHandler(this.btnRemoveFromDaily_Click);
+            // 
             // labelStatic2
             // 
             this.labelStatic2.AutoSize = true;
-            this.labelStatic2.Location = new System.Drawing.Point(270, 48);
+            this.labelStatic2.Location = new System.Drawing.Point(56, 240);
             this.labelStatic2.Name = "labelStatic2";
             this.labelStatic2.Size = new System.Drawing.Size(81, 13);
             this.labelStatic2.TabIndex = 20;
@@ -135,7 +232,7 @@
             // labelStatic1
             // 
             this.labelStatic1.AutoSize = true;
-            this.labelStatic1.Location = new System.Drawing.Point(270, 22);
+            this.labelStatic1.Location = new System.Drawing.Point(56, 214);
             this.labelStatic1.Name = "labelStatic1";
             this.labelStatic1.Size = new System.Drawing.Size(62, 13);
             this.labelStatic1.TabIndex = 19;
@@ -143,26 +240,60 @@
             // 
             // txtTaskEstimatedHours
             // 
-            this.txtTaskEstimatedHours.Location = new System.Drawing.Point(220, 45);
+            this.txtTaskEstimatedHours.Location = new System.Drawing.Point(8, 237);
             this.txtTaskEstimatedHours.Name = "txtTaskEstimatedHours";
             this.txtTaskEstimatedHours.Size = new System.Drawing.Size(45, 20);
             this.txtTaskEstimatedHours.TabIndex = 18;
             // 
+            // btnMarkAsDone
+            // 
+            this.btnMarkAsDone.BackColor = System.Drawing.Color.Tomato;
+            this.btnMarkAsDone.Location = new System.Drawing.Point(373, 245);
+            this.btnMarkAsDone.Name = "btnMarkAsDone";
+            this.btnMarkAsDone.Size = new System.Drawing.Size(63, 47);
+            this.btnMarkAsDone.TabIndex = 11;
+            this.btnMarkAsDone.Text = "Mark as Done";
+            this.btnMarkAsDone.UseVisualStyleBackColor = false;
+            this.btnMarkAsDone.Click += new System.EventHandler(this.btnMarkAsDone_Click);
+            // 
+            // btnAddToDaily
+            // 
+            this.btnAddToDaily.BackColor = System.Drawing.Color.Tomato;
+            this.btnAddToDaily.Location = new System.Drawing.Point(229, 19);
+            this.btnAddToDaily.Name = "btnAddToDaily";
+            this.btnAddToDaily.Size = new System.Drawing.Size(207, 47);
+            this.btnAddToDaily.TabIndex = 6;
+            this.btnAddToDaily.Text = "Add to Daily";
+            this.btnAddToDaily.UseVisualStyleBackColor = false;
+            this.btnAddToDaily.Click += new System.EventHandler(this.btnAddToDaily_Click);
+            // 
+            // btnMarkAsToDo
+            // 
+            this.btnMarkAsToDo.BackColor = System.Drawing.Color.Tomato;
+            this.btnMarkAsToDo.Location = new System.Drawing.Point(229, 246);
+            this.btnMarkAsToDo.Name = "btnMarkAsToDo";
+            this.btnMarkAsToDo.Size = new System.Drawing.Size(56, 47);
+            this.btnMarkAsToDo.TabIndex = 9;
+            this.btnMarkAsToDo.Text = "Mark as To Do";
+            this.btnMarkAsToDo.UseVisualStyleBackColor = false;
+            this.btnMarkAsToDo.Click += new System.EventHandler(this.btnMarkAsToDo_Click);
+            // 
             // txtTaskSpentHours
             // 
-            this.txtTaskSpentHours.Location = new System.Drawing.Point(220, 19);
+            this.txtTaskSpentHours.Location = new System.Drawing.Point(8, 211);
             this.txtTaskSpentHours.Name = "txtTaskSpentHours";
             this.txtTaskSpentHours.Size = new System.Drawing.Size(45, 20);
             this.txtTaskSpentHours.TabIndex = 17;
             // 
             // btnSaveTask
             // 
-            this.btnSaveTask.Location = new System.Drawing.Point(4, 207);
+            this.btnSaveTask.BackColor = System.Drawing.Color.Tomato;
+            this.btnSaveTask.Location = new System.Drawing.Point(6, 268);
             this.btnSaveTask.Name = "btnSaveTask";
             this.btnSaveTask.Size = new System.Drawing.Size(210, 47);
             this.btnSaveTask.TabIndex = 16;
             this.btnSaveTask.Text = "Save";
-            this.btnSaveTask.UseVisualStyleBackColor = true;
+            this.btnSaveTask.UseVisualStyleBackColor = false;
             this.btnSaveTask.Click += new System.EventHandler(this.btnSaveTask_Click);
             // 
             // txtTaskDescription
@@ -186,9 +317,10 @@
             this.groupProjectInfo.Controls.Add(this.btnSaveProject);
             this.groupProjectInfo.Controls.Add(this.txtProjectDescription);
             this.groupProjectInfo.Controls.Add(this.txtProjectName);
-            this.groupProjectInfo.Location = new System.Drawing.Point(6, 502);
+            this.groupProjectInfo.ForeColor = System.Drawing.SystemColors.Control;
+            this.groupProjectInfo.Location = new System.Drawing.Point(452, 6);
             this.groupProjectInfo.Name = "groupProjectInfo";
-            this.groupProjectInfo.Size = new System.Drawing.Size(536, 270);
+            this.groupProjectInfo.Size = new System.Drawing.Size(460, 228);
             this.groupProjectInfo.TabIndex = 1;
             this.groupProjectInfo.TabStop = false;
             this.groupProjectInfo.Text = "Project Information";
@@ -198,11 +330,11 @@
             this.groupProjectInfoMini.Controls.Add(this.labelProjectHours);
             this.groupProjectInfoMini.Controls.Add(this.labelProjectTasksDone);
             this.groupProjectInfoMini.Controls.Add(this.labelProjectPercentage);
-            this.groupProjectInfoMini.Controls.Add(this.labelProjectTasksDoing);
             this.groupProjectInfoMini.Controls.Add(this.labelProjectTasksToDo);
-            this.groupProjectInfoMini.Location = new System.Drawing.Point(228, 19);
+            this.groupProjectInfoMini.ForeColor = System.Drawing.SystemColors.Control;
+            this.groupProjectInfoMini.Location = new System.Drawing.Point(222, 14);
             this.groupProjectInfoMini.Name = "groupProjectInfoMini";
-            this.groupProjectInfoMini.Size = new System.Drawing.Size(194, 123);
+            this.groupProjectInfoMini.Size = new System.Drawing.Size(232, 206);
             this.groupProjectInfoMini.TabIndex = 13;
             this.groupProjectInfoMini.TabStop = false;
             this.groupProjectInfoMini.Text = "Info";
@@ -210,7 +342,7 @@
             // labelProjectHours
             // 
             this.labelProjectHours.AutoSize = true;
-            this.labelProjectHours.Location = new System.Drawing.Point(6, 26);
+            this.labelProjectHours.Location = new System.Drawing.Point(82, 38);
             this.labelProjectHours.Name = "labelProjectHours";
             this.labelProjectHours.Size = new System.Drawing.Size(59, 13);
             this.labelProjectHours.TabIndex = 8;
@@ -219,7 +351,7 @@
             // labelProjectTasksDone
             // 
             this.labelProjectTasksDone.AutoSize = true;
-            this.labelProjectTasksDone.Location = new System.Drawing.Point(140, 61);
+            this.labelProjectTasksDone.Location = new System.Drawing.Point(90, 136);
             this.labelProjectTasksDone.Name = "labelProjectTasksDone";
             this.labelProjectTasksDone.Size = new System.Drawing.Size(45, 13);
             this.labelProjectTasksDone.TabIndex = 12;
@@ -228,25 +360,16 @@
             // labelProjectPercentage
             // 
             this.labelProjectPercentage.AutoSize = true;
-            this.labelProjectPercentage.Location = new System.Drawing.Point(6, 44);
+            this.labelProjectPercentage.Location = new System.Drawing.Point(86, 60);
             this.labelProjectPercentage.Name = "labelProjectPercentage";
             this.labelProjectPercentage.Size = new System.Drawing.Size(48, 13);
             this.labelProjectPercentage.TabIndex = 9;
             this.labelProjectPercentage.Text = "0% done";
             // 
-            // labelProjectTasksDoing
-            // 
-            this.labelProjectTasksDoing.AutoSize = true;
-            this.labelProjectTasksDoing.Location = new System.Drawing.Point(138, 44);
-            this.labelProjectTasksDoing.Name = "labelProjectTasksDoing";
-            this.labelProjectTasksDoing.Size = new System.Drawing.Size(47, 13);
-            this.labelProjectTasksDoing.TabIndex = 11;
-            this.labelProjectTasksDoing.Text = "Doing: 0";
-            // 
             // labelProjectTasksToDo
             // 
             this.labelProjectTasksToDo.AutoSize = true;
-            this.labelProjectTasksToDo.Location = new System.Drawing.Point(136, 26);
+            this.labelProjectTasksToDo.Location = new System.Drawing.Point(86, 113);
             this.labelProjectTasksToDo.Name = "labelProjectTasksToDo";
             this.labelProjectTasksToDo.Size = new System.Drawing.Size(49, 13);
             this.labelProjectTasksToDo.TabIndex = 10;
@@ -254,12 +377,13 @@
             // 
             // btnSaveProject
             // 
-            this.btnSaveProject.Location = new System.Drawing.Point(6, 207);
+            this.btnSaveProject.BackColor = System.Drawing.Color.Tomato;
+            this.btnSaveProject.Location = new System.Drawing.Point(6, 173);
             this.btnSaveProject.Name = "btnSaveProject";
             this.btnSaveProject.Size = new System.Drawing.Size(210, 47);
             this.btnSaveProject.TabIndex = 7;
             this.btnSaveProject.Text = "Save";
-            this.btnSaveProject.UseVisualStyleBackColor = true;
+            this.btnSaveProject.UseVisualStyleBackColor = false;
             this.btnSaveProject.Click += new System.EventHandler(this.btnSaveProject_Click);
             // 
             // txtProjectDescription
@@ -267,7 +391,7 @@
             this.txtProjectDescription.Location = new System.Drawing.Point(8, 45);
             this.txtProjectDescription.Multiline = true;
             this.txtProjectDescription.Name = "txtProjectDescription";
-            this.txtProjectDescription.Size = new System.Drawing.Size(208, 156);
+            this.txtProjectDescription.Size = new System.Drawing.Size(208, 122);
             this.txtProjectDescription.TabIndex = 1;
             // 
             // txtProjectName
@@ -277,196 +401,42 @@
             this.txtProjectName.Size = new System.Drawing.Size(208, 20);
             this.txtProjectName.TabIndex = 0;
             // 
-            // groupTasks
+            // groupMain
             // 
-            this.groupTasks.Controls.Add(this.btnMarkAsDone);
-            this.groupTasks.Controls.Add(this.btnMarkAsDoing);
-            this.groupTasks.Controls.Add(this.btnMarkAsToDo);
-            this.groupTasks.Controls.Add(this.groupDone);
-            this.groupTasks.Controls.Add(this.groupDoing);
-            this.groupTasks.Controls.Add(this.btnAddToDaily);
-            this.groupTasks.Controls.Add(this.btnNewTask);
-            this.groupTasks.Controls.Add(this.groupToDo);
-            this.groupTasks.Location = new System.Drawing.Point(459, 6);
-            this.groupTasks.Name = "groupTasks";
-            this.groupTasks.Size = new System.Drawing.Size(645, 490);
-            this.groupTasks.TabIndex = 5;
-            this.groupTasks.TabStop = false;
-            this.groupTasks.Text = "Tasks";
-            // 
-            // btnMarkAsDone
-            // 
-            this.btnMarkAsDone.Location = new System.Drawing.Point(434, 433);
-            this.btnMarkAsDone.Name = "btnMarkAsDone";
-            this.btnMarkAsDone.Size = new System.Drawing.Size(207, 47);
-            this.btnMarkAsDone.TabIndex = 11;
-            this.btnMarkAsDone.Text = "Mark as Done";
-            this.btnMarkAsDone.UseVisualStyleBackColor = true;
-            this.btnMarkAsDone.Click += new System.EventHandler(this.btnMarkAsDone_Click);
-            // 
-            // btnMarkAsDoing
-            // 
-            this.btnMarkAsDoing.Location = new System.Drawing.Point(221, 433);
-            this.btnMarkAsDoing.Name = "btnMarkAsDoing";
-            this.btnMarkAsDoing.Size = new System.Drawing.Size(207, 47);
-            this.btnMarkAsDoing.TabIndex = 10;
-            this.btnMarkAsDoing.Text = "Mark as Doing";
-            this.btnMarkAsDoing.UseVisualStyleBackColor = true;
-            this.btnMarkAsDoing.Click += new System.EventHandler(this.btnMarkAsDoing_Click);
-            // 
-            // btnMarkAsToDo
-            // 
-            this.btnMarkAsToDo.Location = new System.Drawing.Point(8, 433);
-            this.btnMarkAsToDo.Name = "btnMarkAsToDo";
-            this.btnMarkAsToDo.Size = new System.Drawing.Size(207, 47);
-            this.btnMarkAsToDo.TabIndex = 9;
-            this.btnMarkAsToDo.Text = "Mark as To Do";
-            this.btnMarkAsToDo.UseVisualStyleBackColor = true;
-            this.btnMarkAsToDo.Click += new System.EventHandler(this.btnMarkAsToDo_Click);
-            // 
-            // groupDone
-            // 
-            this.groupDone.Controls.Add(this.listDone);
-            this.groupDone.Location = new System.Drawing.Point(434, 17);
-            this.groupDone.Name = "groupDone";
-            this.groupDone.Size = new System.Drawing.Size(207, 357);
-            this.groupDone.TabIndex = 8;
-            this.groupDone.TabStop = false;
-            this.groupDone.Text = "Done";
-            // 
-            // listDone
-            // 
-            this.listDone.FormattingEnabled = true;
-            this.listDone.Location = new System.Drawing.Point(6, 19);
-            this.listDone.Name = "listDone";
-            this.listDone.Size = new System.Drawing.Size(195, 329);
-            this.listDone.TabIndex = 6;
-            this.listDone.SelectedIndexChanged += new System.EventHandler(this.listDone_SelectedIndexChanged);
-            // 
-            // groupDoing
-            // 
-            this.groupDoing.Controls.Add(this.listDoing);
-            this.groupDoing.Location = new System.Drawing.Point(221, 17);
-            this.groupDoing.Name = "groupDoing";
-            this.groupDoing.Size = new System.Drawing.Size(207, 357);
-            this.groupDoing.TabIndex = 7;
-            this.groupDoing.TabStop = false;
-            this.groupDoing.Text = "Doing";
-            // 
-            // listDoing
-            // 
-            this.listDoing.FormattingEnabled = true;
-            this.listDoing.Location = new System.Drawing.Point(6, 19);
-            this.listDoing.Name = "listDoing";
-            this.listDoing.Size = new System.Drawing.Size(195, 329);
-            this.listDoing.TabIndex = 6;
-            this.listDoing.SelectedIndexChanged += new System.EventHandler(this.listDoing_SelectedIndexChanged);
-            // 
-            // btnAddToDaily
-            // 
-            this.btnAddToDaily.Location = new System.Drawing.Point(221, 380);
-            this.btnAddToDaily.Name = "btnAddToDaily";
-            this.btnAddToDaily.Size = new System.Drawing.Size(207, 47);
-            this.btnAddToDaily.TabIndex = 6;
-            this.btnAddToDaily.Text = "Add to Daily";
-            this.btnAddToDaily.UseVisualStyleBackColor = true;
-            this.btnAddToDaily.Click += new System.EventHandler(this.btnAddToDaily_Click);
-            // 
-            // btnNewTask
-            // 
-            this.btnNewTask.Location = new System.Drawing.Point(8, 380);
-            this.btnNewTask.Name = "btnNewTask";
-            this.btnNewTask.Size = new System.Drawing.Size(207, 47);
-            this.btnNewTask.TabIndex = 4;
-            this.btnNewTask.Text = "New Task";
-            this.btnNewTask.UseVisualStyleBackColor = true;
-            this.btnNewTask.Click += new System.EventHandler(this.btnNewTask_Click);
-            // 
-            // groupToDo
-            // 
-            this.groupToDo.Controls.Add(this.listToDo);
-            this.groupToDo.Location = new System.Drawing.Point(8, 17);
-            this.groupToDo.Name = "groupToDo";
-            this.groupToDo.Size = new System.Drawing.Size(207, 357);
-            this.groupToDo.TabIndex = 0;
-            this.groupToDo.TabStop = false;
-            this.groupToDo.Text = "To Do";
-            // 
-            // listToDo
-            // 
-            this.listToDo.FormattingEnabled = true;
-            this.listToDo.Location = new System.Drawing.Point(6, 19);
-            this.listToDo.Name = "listToDo";
-            this.listToDo.Size = new System.Drawing.Size(195, 329);
-            this.listToDo.TabIndex = 6;
-            this.listToDo.SelectedIndexChanged += new System.EventHandler(this.listToDo_SelectedIndexChanged);
-            // 
-            // groupProjects
-            // 
-            this.groupProjects.Controls.Add(this.listProjects);
-            this.groupProjects.Controls.Add(this.btnNewProject);
-            this.groupProjects.Location = new System.Drawing.Point(234, 6);
-            this.groupProjects.Name = "groupProjects";
-            this.groupProjects.Size = new System.Drawing.Size(219, 490);
-            this.groupProjects.TabIndex = 4;
-            this.groupProjects.TabStop = false;
-            this.groupProjects.Text = "Projects";
+            this.groupMain.Controls.Add(this.listProjects);
+            this.groupMain.Controls.Add(this.listToDo);
+            this.groupMain.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.groupMain.Location = new System.Drawing.Point(3, 6);
+            this.groupMain.Name = "groupMain";
+            this.groupMain.Size = new System.Drawing.Size(438, 255);
+            this.groupMain.TabIndex = 4;
+            this.groupMain.TabStop = false;
+            this.groupMain.Text = "Main";
             // 
             // listProjects
             // 
             this.listProjects.FormattingEnabled = true;
-            this.listProjects.Location = new System.Drawing.Point(6, 19);
+            this.listProjects.Location = new System.Drawing.Point(9, 17);
             this.listProjects.Name = "listProjects";
-            this.listProjects.Size = new System.Drawing.Size(207, 355);
+            this.listProjects.Size = new System.Drawing.Size(207, 225);
             this.listProjects.TabIndex = 3;
-            this.listProjects.SelectedIndexChanged += new System.EventHandler(this.listProjects_SelectedIndexChanged);
+            this.listProjects.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listProjects_MouseClick);
             // 
-            // btnNewProject
+            // listToDo
             // 
-            this.btnNewProject.Location = new System.Drawing.Point(6, 380);
-            this.btnNewProject.Name = "btnNewProject";
-            this.btnNewProject.Size = new System.Drawing.Size(207, 47);
-            this.btnNewProject.TabIndex = 0;
-            this.btnNewProject.Text = "New Project";
-            this.btnNewProject.UseVisualStyleBackColor = true;
-            this.btnNewProject.Click += new System.EventHandler(this.btnNewProject_Click);
-            // 
-            // groupDaily
-            // 
-            this.groupDaily.Controls.Add(this.btnRemoveDaily);
-            this.groupDaily.Controls.Add(this.listDaily);
-            this.groupDaily.Location = new System.Drawing.Point(6, 6);
-            this.groupDaily.Name = "groupDaily";
-            this.groupDaily.Size = new System.Drawing.Size(222, 490);
-            this.groupDaily.TabIndex = 2;
-            this.groupDaily.TabStop = false;
-            this.groupDaily.Text = "Daily";
-            // 
-            // btnRemoveDaily
-            // 
-            this.btnRemoveDaily.Location = new System.Drawing.Point(6, 380);
-            this.btnRemoveDaily.Name = "btnRemoveDaily";
-            this.btnRemoveDaily.Size = new System.Drawing.Size(210, 47);
-            this.btnRemoveDaily.TabIndex = 6;
-            this.btnRemoveDaily.Text = "Remove from Daily";
-            this.btnRemoveDaily.UseVisualStyleBackColor = true;
-            this.btnRemoveDaily.Click += new System.EventHandler(this.btnRemoveDaily_Click);
-            // 
-            // listDaily
-            // 
-            this.listDaily.FormattingEnabled = true;
-            this.listDaily.Location = new System.Drawing.Point(6, 19);
-            this.listDaily.Name = "listDaily";
-            this.listDaily.Size = new System.Drawing.Size(210, 355);
-            this.listDaily.TabIndex = 1;
-            this.listDaily.SelectedIndexChanged += new System.EventHandler(this.listDaily_SelectedIndexChanged);
+            this.listToDo.FormattingEnabled = true;
+            this.listToDo.Location = new System.Drawing.Point(222, 17);
+            this.listToDo.Name = "listToDo";
+            this.listToDo.Size = new System.Drawing.Size(207, 225);
+            this.listToDo.TabIndex = 6;
+            this.listToDo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listToDo_MouseClick);
             // 
             // tabSkills
             // 
             this.tabSkills.Location = new System.Drawing.Point(4, 22);
             this.tabSkills.Name = "tabSkills";
             this.tabSkills.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSkills.Size = new System.Drawing.Size(1109, 775);
+            this.tabSkills.Size = new System.Drawing.Size(1154, 565);
             this.tabSkills.TabIndex = 1;
             this.tabSkills.Text = "Skills";
             this.tabSkills.UseVisualStyleBackColor = true;
@@ -475,34 +445,42 @@
             // 
             this.tabCalendar.Location = new System.Drawing.Point(4, 22);
             this.tabCalendar.Name = "tabCalendar";
-            this.tabCalendar.Size = new System.Drawing.Size(1109, 775);
+            this.tabCalendar.Size = new System.Drawing.Size(1154, 565);
             this.tabCalendar.TabIndex = 2;
             this.tabCalendar.Text = "Calendar";
             this.tabCalendar.UseVisualStyleBackColor = true;
+            // 
+            // btnAddChores
+            // 
+            this.btnAddChores.BackColor = System.Drawing.Color.Tomato;
+            this.btnAddChores.Location = new System.Drawing.Point(6, 123);
+            this.btnAddChores.Name = "btnAddChores";
+            this.btnAddChores.Size = new System.Drawing.Size(207, 47);
+            this.btnAddChores.TabIndex = 7;
+            this.btnAddChores.Text = "Add Everyday Chores";
+            this.btnAddChores.UseVisualStyleBackColor = false;
+            this.btnAddChores.Click += new System.EventHandler(this.btnAddChores_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1121, 802);
+            this.ClientSize = new System.Drawing.Size(1165, 592);
             this.Controls.Add(this.tabControl1);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Projects Manager";
             this.tabControl1.ResumeLayout(false);
             this.tabProjects.ResumeLayout(false);
+            this.groupActions.ResumeLayout(false);
+            this.groupDailyWeekly.ResumeLayout(false);
             this.groupTaskInfo.ResumeLayout(false);
             this.groupTaskInfo.PerformLayout();
             this.groupProjectInfo.ResumeLayout(false);
             this.groupProjectInfo.PerformLayout();
             this.groupProjectInfoMini.ResumeLayout(false);
             this.groupProjectInfoMini.PerformLayout();
-            this.groupTasks.ResumeLayout(false);
-            this.groupDone.ResumeLayout(false);
-            this.groupDoing.ResumeLayout(false);
-            this.groupToDo.ResumeLayout(false);
-            this.groupProjects.ResumeLayout(false);
-            this.groupDaily.ResumeLayout(false);
+            this.groupMain.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -513,23 +491,13 @@
         private System.Windows.Forms.TabPage tabProjects;
         private System.Windows.Forms.TabPage tabSkills;
         private System.Windows.Forms.TabPage tabCalendar;
-        private System.Windows.Forms.GroupBox groupDaily;
         private System.Windows.Forms.ListBox listDaily;
-        private System.Windows.Forms.Button btnNewProject;
-        private System.Windows.Forms.GroupBox groupTasks;
-        private System.Windows.Forms.GroupBox groupToDo;
-        private System.Windows.Forms.GroupBox groupProjects;
+        private System.Windows.Forms.GroupBox groupMain;
         private System.Windows.Forms.ListBox listProjects;
         private System.Windows.Forms.Button btnNewTask;
         private System.Windows.Forms.Button btnAddToDaily;
-        private System.Windows.Forms.Button btnRemoveDaily;
-        private System.Windows.Forms.GroupBox groupDone;
-        private System.Windows.Forms.ListBox listDone;
-        private System.Windows.Forms.GroupBox groupDoing;
-        private System.Windows.Forms.ListBox listDoing;
         private System.Windows.Forms.ListBox listToDo;
         private System.Windows.Forms.Button btnMarkAsDone;
-        private System.Windows.Forms.Button btnMarkAsDoing;
         private System.Windows.Forms.Button btnMarkAsToDo;
         private System.Windows.Forms.GroupBox groupTaskInfo;
         private System.Windows.Forms.GroupBox groupProjectInfo;
@@ -539,7 +507,6 @@
         private System.Windows.Forms.Button btnSaveProject;
         private System.Windows.Forms.TextBox txtProjectDescription;
         private System.Windows.Forms.Label labelProjectTasksDone;
-        private System.Windows.Forms.Label labelProjectTasksDoing;
         private System.Windows.Forms.Label labelProjectTasksToDo;
         private System.Windows.Forms.GroupBox groupProjectInfoMini;
         private System.Windows.Forms.Label labelStatic2;
@@ -549,6 +516,14 @@
         private System.Windows.Forms.Button btnSaveTask;
         private System.Windows.Forms.TextBox txtTaskDescription;
         private System.Windows.Forms.TextBox txtTaskName;
+        private System.Windows.Forms.ListBox listWeekly;
+        private System.Windows.Forms.Button btnNewProject;
+        private System.Windows.Forms.Button btnRemoveFromWeekly;
+        private System.Windows.Forms.Button btnAddToWeekly;
+        private System.Windows.Forms.Button btnRemoveFromDaily;
+        private System.Windows.Forms.GroupBox groupActions;
+        private System.Windows.Forms.GroupBox groupDailyWeekly;
+        private System.Windows.Forms.Button btnAddChores;
     }
 }
 

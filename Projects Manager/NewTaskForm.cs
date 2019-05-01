@@ -12,12 +12,16 @@ namespace Projects_Manager
 {
     public partial class NewTaskForm : Form
     {
-        private Project project;
+        private Holder holder;
+        private Project selectedProject;
+        private Task selectedTask;
 
-        public NewTaskForm(Project project)
+        public NewTaskForm(Holder holder, Project selectedProject, Task selectedTask)
         {
             InitializeComponent();
-            this.project = project;
+            this.holder = holder;
+            this.selectedProject = selectedProject;
+            this.selectedTask = selectedTask;
         }
 
         private void btnCreateTask_Click(object sender, EventArgs e)
@@ -29,7 +33,9 @@ namespace Projects_Manager
             bool parseSuccess = float.TryParse(txtNewTaskHours.Text, out taskEstimatedHours);
             taskEstimatedHours = parseSuccess ? taskEstimatedHours : 0;
 
-            Storage.AddToDo(new Task(project, taskName, taskDescription, taskEstimatedHours));
+            selectedProject.tasksToDo.Add(new Task(selectedProject, taskName, taskDescription, taskEstimatedHours));
+
+            UIManager.Refresh(holder, selectedProject, selectedTask);
 
             this.Hide();
         }

@@ -10,535 +10,292 @@ using System.Windows.Forms;
 
 using Newtonsoft.Json;
 
-namespace Projects_Manager
-{
-    public partial class MainForm : Form
-    {
+namespace Projects_Manager {
+    public partial class MainForm : Form {
+        private Holder holder;
+
+        private ListBox selectedList;
         private Project selectedProject;
         private Task selectedTask;
 
-        public MainForm()
-        {
+        public MainForm() {
             InitializeComponent();
 
-            Holder holder = null;
+            UIManager.Init(listProjects, listDaily, listWeekly, listToDo, txtProjectName, txtProjectDescription, labelProjectHours,
+                labelProjectPercentage, labelProjectTasksToDo, labelProjectTasksDone, txtTaskName, txtTaskDescription, txtTaskSpentHours,
+                txtTaskEstimatedHours);
+
             string json = FileHandler.Read("holder.json");
-            if (json != "")
-            {
+            if (json != "") {
                 holder = JsonConvert.DeserializeObject<Holder>(json);
                 holder.AssignProjectsToTasks();
             }
 
-            Storage.Init(this, holder);
-            groupTasks.Visible = false;
+            UIManager.Refresh(holder, selectedProject, selectedTask);
         }
 
         #region Actions
-        public void SelectProject(Project project)
-        {
+        public void SelectProject(Project project) {
+            if (selectedProject == project) {
+                return;
+            }
+
             selectedProject = project;
+            selectedTask = null;
 
-            listToDo.Items.Clear();
-            listDoing.Items.Clear();
-            listDone.Items.Clear();
-
-            foreach (Task toDo in selectedProject.tasksToDo)
-            {
-                listToDo.Items.Add(toDo.name);
-            }
-            foreach (Task doing in selectedProject.tasksDoing)
-            {
-                listDoing.Items.Add(doing.name);
-            }
-            foreach (Task done in selectedProject.tasksDone)
-            {
-                listDone.Items.Add(done.name);
-            }
-
-            txtProjectName.Text = project.name;
-            txtProjectDescription.Text = project.description;
-            labelProjectHours.Text = project.GetSpentHours() + " / " + project.GetEstimatedHours() + " hours";
-            labelProjectPercentage.Text = project.GetDonePercentage() + "% done";
-            labelProjectTasksToDo.Text = "To Do: " + project.tasksToDo.Count;
-            labelProjectTasksDoing.Text = "Doing: " + project.tasksDoing.Count;
-            labelProjectTasksDone.Text = "Done: " + project.tasksDone.Count;
-
-            for (int i = 0; i < Storage.holder.projects.Count; i++)
-            {
-                if (Storage.holder.projects[i].Equals(project))
-                {
-                    listProjects.SelectedIndex = i;
-                }
-            }
-
-            Storage.Save();
+            UIManager.Refresh(holder, selectedProject, selectedTask);
         }
 
-        public void SelectTask(Task task)
-        {
+        public void SelectTask(Task task) {
+            if (selectedTask == task) {
+                return;
+            }
+
+            selectedProject = task.project;
             selectedTask = task;
 
-            txtTaskName.Text = task.name;
-            txtTaskDescription.Text = task.description;
-            txtTaskSpentHours.Text = task.spentHours.ToString();
-            txtTaskEstimatedHours.Text = task.estimatedHours.ToString();
+            UIManager.Refresh(holder, selectedProject, selectedTask);
+        }
 
-            for (int i = 0; i < selectedProject.tasksToDo.Count; i++)
-            {
-                if (selectedProject.tasksToDo[i].Equals(task))
-                {
-                    listToDo.SelectedIndex = i;
-                    listDoing.ClearSelected();
-                    listDone.ClearSelected();
-                }
-            }
-            for (int i = 0; i < selectedProject.tasksDoing.Count; i++)
-            {
-                if (selectedProject.tasksDoing[i].Equals(task))
-                {
-                    listDoing.SelectedIndex = i;
-                    listToDo.ClearSelected();
-                    listDone.ClearSelected();
-                }
-            }
-
-            for (int i = 0; i < selectedProject.tasksDone.Count; i++)
-            {
-                if (selectedProject.tasksDone[i].Equals(task))
-                {
-                    listDone.SelectedIndex = i;
-                    listToDo.ClearSelected();
-                    listDoing.ClearSelected();
-                }
-            }
-
-            bool inDaily = false;
-            for (int i = 0; i < Storage.holder.daily.Count; i++)
-            {
-                if (Storage.holder.daily[i].Equals(task))
-                {
-                    listDaily.SelectedIndex = i;
-                    inDaily = true;
-                }
-            }
-
-            if (!inDaily)
-            {
-                listDaily.ClearSelected();
-            }
-
-            Storage.Save();
+        public void SelectList(ListBox list) {
+            selectedList = list;
         }
         #endregion
 
         #region List Controls
-        private void listProjects_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listProjects.SelectedIndex < 0)
-            {
-                return;
-            }
-            groupTasks.Visible = true;
-
-            SelectProject(Storage.holder.projects[listProjects.SelectedIndex]);
-        }
-        private void listDaily_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listDaily.SelectedIndex < 0)
-            {
+        private void listProjects_MouseClick(object sender, MouseEventArgs e) {
+            if (listProjects.SelectedIndex < 0) {
                 return;
             }
 
-            SelectProject(Storage.holder.daily[listDaily.SelectedIndex].project);
-            SelectTask(Storage.holder.daily[listDaily.SelectedIndex]);
+            SelectProject(holder.projects[listProjects.SelectedIndex]);
+            SelectList(listProjects);
         }
-
-        public void AddProjectToList(Project newProject)
-        {
-            listProjects.Items.Add(newProject.name);
-        }
-        public void RemoveProjectFromList(Project oldProject)
-        {
-            listProjects.Items.Remove(oldProject.name);
-        }
-
-        public void AddToDoToList(Task newToDo)
-        {
-            listToDo.Items.Add(newToDo.name);
-        }
-        public void RemoveToDoFromList(Task oldToDo)
-        {
-            listToDo.Items.Remove(oldToDo.name);
-        }
-
-        public void AddDoingToList(Task newDoing)
-        {
-            listDoing.Items.Add(newDoing.name);
-        }
-        public void RemoveDoingFromList(Task oldDoing)
-        {
-            listDoing.Items.Remove(oldDoing.name);
-        }
-        public void AddDoneToList(Task newDone)
-        {
-            listDone.Items.Add(newDone.name);
-        }
-        public void RemoveDoneFromList(Task oldDone)
-        {
-            listDone.Items.Remove(oldDone.name);
-        }
-        public void AddDailyToList(Task newDaily)
-        {
-            listDaily.Items.Add(newDaily.name);
-        }
-        public void RemoveDailyFromList(Task oldDaily)
-        {
-            listDaily.Items.Remove(oldDaily.name);
-        }
-        private void listToDo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listToDo.SelectedIndex < 0)
-            {
+        private void listToDo_MouseClick(object sender, MouseEventArgs e) {
+            if (listToDo.SelectedIndex < 0) {
                 return;
             }
 
             SelectTask(selectedProject.tasksToDo[listToDo.SelectedIndex]);
+            SelectList(listToDo);
         }
 
-
-        private void listDoing_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listDoing.SelectedIndex < 0)
-            {
+        private void listDaily_MouseClick(object sender, MouseEventArgs e) {
+            if (listDaily.SelectedIndex < 0) {
                 return;
             }
 
-            SelectTask(selectedProject.tasksDoing[listDoing.SelectedIndex]);
-        }
+            SelectTask(holder.daily[listDaily.SelectedIndex]);
+            SelectList(listDaily);
 
-        private void listDone_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listDone.SelectedIndex < 0)
-            {
+        }
+        private void listWeekly_MouseClick(object sender, MouseEventArgs e) {
+            if (listWeekly.SelectedIndex < 0) {
                 return;
             }
 
-            SelectTask(selectedProject.tasksDone[listDone.SelectedIndex]);
+            SelectTask(holder.weekly[listWeekly.SelectedIndex]);
+            SelectList(listWeekly);
         }
         #endregion
 
-        #region Buttons
+        #region Button Controls
 
-        #region Form Flow
-        private void btnNewProject_Click(object sender, EventArgs e)
-        {
-            NewProjectForm newProjectForm = new NewProjectForm();
+        private void btnNewProject_Click_1(object sender, EventArgs e) {
+            NewProjectForm newProjectForm = new NewProjectForm(holder, selectedProject, selectedTask);
             newProjectForm.Show();
         }
 
-        private void btnNewTask_Click(object sender, EventArgs e)
-        {
-            NewTaskForm newTaskForm = new NewTaskForm(Storage.holder.projects[listProjects.SelectedIndex]);
+        private void btnNewTask_Click(object sender, EventArgs e) {
+            NewTaskForm newTaskForm = new NewTaskForm(holder, selectedProject, selectedTask);
             newTaskForm.Show();
         }
-        #endregion
 
-        #region Tasks
-        private void btnMarkAsToDo_Click(object sender, EventArgs e)
-        {
-            Storage.RemoveTask(selectedTask, true);
-            Storage.AddToDo(selectedTask);
-        }
-
-        private void btnMarkAsDoing_Click(object sender, EventArgs e)
-        {
-            Storage.RemoveTask(selectedTask, true);
-            Storage.AddDoing(selectedTask);
-        }
-
-        private void btnMarkAsDone_Click(object sender, EventArgs e)
-        {
-            Storage.RemoveTask(selectedTask, true);
-            Storage.AddDone(selectedTask, true);
-            Storage.RemoveDaily(selectedTask);
-        }
-        #endregion
-
-        #region Daily
-        private void btnAddToDaily_Click(object sender, EventArgs e)
-        {
-            if (selectedTask == null)
-            {
-                return;
-            }
-
-            Storage.AddDaily(selectedTask);
-        }
-
-        private void btnRemoveDaily_Click(object sender, EventArgs e)
-        {
-            if (Storage.holder.daily[listDaily.SelectedIndex] == null)
-            {
-                return;
-            }
-
-            Storage.RemoveDaily(Storage.holder.daily[listDaily.SelectedIndex]);
-        }
-
-
-
-        #endregion
-
-        #endregion
-
-        private void btnSaveProject_Click(object sender, EventArgs e)
-        {
-            if (selectedProject == null)
-            {
+        private void btnSaveProject_Click(object sender, EventArgs e) {
+            if (selectedProject == null) {
                 return;
             }
 
             selectedProject.name = txtProjectName.Text;
             selectedProject.description = txtProjectDescription.Text;
-            SelectProject(selectedProject);
+
+            UIManager.Refresh(holder, selectedProject, selectedTask);
         }
 
-        private void btnSaveTask_Click(object sender, EventArgs e)
-        {
-            if (selectedTask == null)
-            {
+        private void btnSaveTask_Click(object sender, EventArgs e) {
+            if (selectedTask == null) {
                 return;
             }
+
             selectedTask.name = txtTaskName.Text;
             selectedTask.description = txtTaskDescription.Text;
             selectedTask.spentHours = float.Parse(txtTaskSpentHours.Text);
             selectedTask.estimatedHours = float.Parse(txtTaskEstimatedHours.Text);
-            SelectTask(selectedTask);
+
+            UIManager.Refresh(holder, selectedProject, selectedTask);
         }
-    }
 
 
-    public static class Storage
-    {
-        public static MainForm mainForm;
-        public static Holder holder;
+        private void btnMarkAsToDo_Click(object sender, EventArgs e) {
+            selectedTask.project.tasksDone.Remove(selectedTask);
+            selectedTask.project.tasksToDo.Add(selectedTask);
 
-        public static void Init(MainForm mainForm, Holder _holder)
-        {
-            Storage.mainForm = mainForm;
+            UIManager.Refresh(holder, selectedProject, selectedTask);
+        }
 
-            if (_holder == null)
-            {
-                holder = new Holder();
+        private void btnMarkAsDone_Click(object sender, EventArgs e) {
+            if (selectedTask.spentHours == 0) {
+                selectedTask.spentHours = selectedTask.estimatedHours;
+            }
+
+            selectedTask.project.tasksToDo.Remove(selectedTask);
+            selectedTask.project.tasksDone.Add(selectedTask);
+
+            if (holder.daily.Contains(selectedTask)) {
+                holder.daily.Remove(selectedTask);
+            }
+
+            if (holder.weekly.Contains(selectedTask)) {
+                holder.weekly.Remove(selectedTask);
+            }
+
+            UIManager.Refresh(holder, selectedProject, selectedTask);
+        }
+
+        private void btnArchiveAllDone_Click(object sender, EventArgs e) {
+            foreach (var task in selectedProject.tasksDone) {
+                selectedProject.tasksArchived.Add(task.DeepCopy());
+            }
+
+            selectedProject.tasksDone.Clear();
+            UIManager.Refresh(holder, selectedProject, selectedTask);
+        }
+
+        private void btnAddToDaily_Click(object sender, EventArgs e) {
+            if (selectedTask == null || holder.daily.Contains(selectedTask)) {
                 return;
             }
-            holder = _holder;
-            
-            foreach (Project project in holder.projects)
-            {
-                mainForm.AddProjectToList(project);
+
+            holder.weekly.Remove(selectedTask);
+            holder.daily.Add(selectedTask);
+            UIManager.Refresh(holder, selectedProject, selectedTask);
+        }
+
+
+        private void btnRemoveFromDaily_Click(object sender, EventArgs e) {
+            if (selectedTask == null) {
+                return;
             }
 
-            foreach(Task daily in holder.daily)
-            {
-                mainForm.AddDailyToList(daily);
+            if (holder.daily.Remove(selectedTask)) {
+                UIManager.Refresh(holder, selectedProject, selectedTask);
             }
         }
 
-        public static void Save()
-        {
-            string json = JsonConvert.SerializeObject(holder, new JsonSerializerSettings()
-            {
-                PreserveReferencesHandling = PreserveReferencesHandling.Objects,
-                Formatting = Formatting.Indented
-            });
-            FileHandler.Write("holder.json", json);
-        }
-
-        #region Projects
-        public static void AddProject(Project newProject)
-        {
-            holder.projects.Add(newProject);
-            mainForm.AddProjectToList(newProject);
-            Storage.Save();
-        }
-        #endregion
-
-        #region Tasks
-        public static void AddToDo(Task newToDo)
-        {
-            newToDo.project.tasksToDo.Add(newToDo);
-            mainForm.AddToDoToList(newToDo);
-            Storage.Save();
-        }
-
-        public static void AddDoing(Task newDoing)
-        {
-            newDoing.project.tasksDoing.Add(newDoing);
-            mainForm.AddDoingToList(newDoing);
-            Storage.Save();
-        }
-
-        public static void AddDone(Task newDone, bool refresh)
-        {
-            newDone.project.tasksDone.Add(newDone);
-
-            if (refresh)
-            {
-                mainForm.AddDoneToList(newDone);
+        private void btnAddToWeekly_Click(object sender, EventArgs e) {
+            if (selectedTask == null || holder.weekly.Contains(selectedTask)) {
+                return;
             }
-            Storage.Save();
+
+            holder.daily.Remove(selectedTask);
+            holder.weekly.Add(selectedTask);
+            UIManager.Refresh(holder, selectedProject, selectedTask);
+
         }
 
-        public static void RemoveTask(Task oldTask, bool refresh)
-        {
-            if (oldTask.project.tasksToDo.Remove(oldTask) && refresh)
-            {
-                mainForm.RemoveToDoFromList(oldTask);
+        private void btnRemoveFromWeekly_Click(object sender, EventArgs e) {
+            if (selectedTask == null) {
+                return;
             }
-            if (oldTask.project.tasksDoing.Remove(oldTask) && refresh)
-            {
-                mainForm.RemoveDoingFromList(oldTask);
-            }
-            if (oldTask.project.tasksDone.Remove(oldTask) && refresh)
-            {
-                mainForm.RemoveDoneFromList(oldTask);
+
+            if (holder.weekly.Remove(selectedTask)) {
+                UIManager.Refresh(holder, selectedProject, selectedTask);
             }
         }
-        #endregion
 
-        #region Daily 
-        public static void AddDaily(Task task)
-        {
-            holder.daily.Add(task);
-            mainForm.AddDailyToList(task);
-            Storage.Save();
-        }
+        private void btnAddChores_Click(object sender, EventArgs e) {
+            foreach (Project project in holder.projects) {
+                if (project.name == "Misc") {
+                    SelectProject(project);
 
-        public static void RemoveDaily(Task task)
-        {
-            holder.daily.Remove(task);
-            mainForm.RemoveDailyFromList(task);
-            Storage.Save();
-        }
-        #endregion
-    }
+                    Task evernoteDiary = new Task(project, "Evernote Diary", "", 0.25f);
+                    Task monthly = new Task(project, "Monthly", "", 0.25f);
+                    Task calendarDollarbird = new Task(project, "Calendar & Dollarbird", "", 0.25f);
 
-    public class Holder
-    {
-        public List<Project> projects;
-        public List<Task> daily;
+                    project.tasksToDo.Add(evernoteDiary);
+                    project.tasksToDo.Add(monthly);
+                    project.tasksToDo.Add(calendarDollarbird);
 
-        public Holder()
-        {
-            projects = new List<Project>();
-            daily = new List<Task>();
-        }
+                    holder.daily.Add(evernoteDiary);
+                    holder.daily.Add(monthly);
+                    holder.daily.Add(calendarDollarbird);
 
-        public void AssignProjectsToTasks()
-        {
-            foreach (Project project in projects)
-            {
-                foreach (Task task in project.tasksToDo)
-                {
-                    task.project = project;
-                }
-                foreach (Task task in project.tasksDoing)
-                {
-                    task.project = project;
-                }
-                foreach (Task task in project.tasksDone)
-                {
-                    task.project = project;
+                    UIManager.Refresh(holder, selectedProject, selectedTask);
                 }
             }
         }
-    }
 
-    public class Project
-    {
-        public string name;
-        public string description;
+        #endregion
 
-        public List<Task> tasksToDo;
-        public List<Task> tasksDoing;
-        public List<Task> tasksDone;
+        #region Key Bindings
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
+            int upDownIndex;
 
-        public Project(string name, string description)
-        {
-            this.name = name;
-            this.description = description;
+            switch (keyData) {
+                case Keys.Up:
+                    upDownIndex = selectedList.SelectedIndex;
 
-            tasksToDo = new List<Task>();
-            tasksDoing = new List<Task>();
-            tasksDone = new List<Task>();
+                    if (selectedList == listProjects && upDownIndex > 0) {
+                        holder.SwapProjects(upDownIndex, upDownIndex - 1);
+                    }
+                    if (selectedList == listToDo && upDownIndex > 0) {
+                        holder.SwapToDo(selectedProject, upDownIndex, upDownIndex - 1);
+                    }
+                    if (selectedList == listDaily && upDownIndex > 0) {
+                        holder.SwapDaily(upDownIndex, upDownIndex - 1);
+                    }
+                    if (selectedList == listWeekly && upDownIndex > 0) {
+                        holder.SwapWeekly(upDownIndex, upDownIndex - 1);
+                    }
+
+                    UIManager.Refresh(holder, selectedProject, selectedTask);
+                    return true;
+                case Keys.Down:
+                    upDownIndex = selectedList.SelectedIndex;
+
+                    if (selectedList == listProjects && upDownIndex < selectedList.Items.Count - 1) {
+                        holder.SwapProjects(upDownIndex, upDownIndex + 1);
+                    }
+                    if (selectedList == listToDo && upDownIndex < selectedList.Items.Count - 1) {
+                        holder.SwapToDo(selectedProject, upDownIndex, upDownIndex + 1);
+                    }
+                    if (selectedList == listDaily && upDownIndex < selectedList.Items.Count - 1) {
+                        holder.SwapDaily(upDownIndex, upDownIndex + 1);
+                    }
+                    if (selectedList == listWeekly && upDownIndex < selectedList.Items.Count - 1) {
+                        holder.SwapWeekly(upDownIndex, upDownIndex + 1);
+                    }
+
+                    UIManager.Refresh(holder, selectedProject, selectedTask);
+                    return true;
+                case Keys.P:
+                    btnNewProject.PerformClick();
+                    return true;
+                case Keys.T:
+                    btnNewTask.PerformClick();
+                    return true;
+                case Keys.D:
+                    btnAddToDaily.PerformClick();
+                    return true;
+                case Keys.W:
+                    btnAddToWeekly.PerformClick();
+                    return true;
+                case Keys.Space:
+                    btnMarkAsDone.PerformClick();
+                    return true;
+            }
+            return false;
         }
-
-        public float GetSpentHours()
-        {
-            float spentHours = 0;
-
-            foreach (Task task in tasksToDo)
-            {
-                spentHours += task.spentHours;
-            }
-            foreach (Task task in tasksDoing)
-            {
-                spentHours += task.spentHours;
-            }
-            foreach (Task task in tasksDone)
-            {
-                spentHours += task.spentHours;
-            }
-
-            return spentHours;
-        }
-
-        public float GetEstimatedHours()
-        {
-            float totalHours = 0;
-
-            foreach (Task task in tasksToDo)
-            {
-                totalHours += task.estimatedHours;
-            }
-            foreach (Task task in tasksDoing)
-            {
-                totalHours += task.estimatedHours;
-            }
-            foreach (Task task in tasksDone)
-            {
-                totalHours += task.estimatedHours;
-            }
-
-            return totalHours;
-        }
-
-        public float GetDonePercentage()
-        {
-            return 100 / GetEstimatedHours() * GetSpentHours();
-        }
-
-    }
-
-    public class Task
-    {
-        public Project project;
-
-        public string name;
-        public string description;
-
-        public float estimatedHours;
-        public float spentHours;
-
-        public Task(Project project, string name, string description, float estimatedHours)
-        {
-            this.project = project;
-
-            this.name = name;
-            this.description = description;
-            this.estimatedHours = estimatedHours;
-            this.spentHours = 0;
-        }
+        #endregion
     }
 }
