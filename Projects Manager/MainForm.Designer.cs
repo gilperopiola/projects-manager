@@ -31,6 +31,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabProjects = new System.Windows.Forms.TabPage();
             this.groupActions = new System.Windows.Forms.GroupBox();
+            this.btnAddChores = new System.Windows.Forms.Button();
             this.btnNewProject = new System.Windows.Forms.Button();
             this.btnNewTask = new System.Windows.Forms.Button();
             this.groupDailyWeekly = new System.Windows.Forms.GroupBox();
@@ -45,7 +46,6 @@
             this.txtTaskEstimatedHours = new System.Windows.Forms.TextBox();
             this.btnMarkAsDone = new System.Windows.Forms.Button();
             this.btnAddToDaily = new System.Windows.Forms.Button();
-            this.btnMarkAsToDo = new System.Windows.Forms.Button();
             this.txtTaskSpentHours = new System.Windows.Forms.TextBox();
             this.btnSaveTask = new System.Windows.Forms.Button();
             this.txtTaskDescription = new System.Windows.Forms.TextBox();
@@ -64,7 +64,7 @@
             this.listToDo = new System.Windows.Forms.ListBox();
             this.tabSkills = new System.Windows.Forms.TabPage();
             this.tabCalendar = new System.Windows.Forms.TabPage();
-            this.btnAddChores = new System.Windows.Forms.Button();
+            this.btnArchivedProject = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabProjects.SuspendLayout();
             this.groupActions.SuspendLayout();
@@ -83,7 +83,7 @@
             this.tabControl1.Location = new System.Drawing.Point(2, 1);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1162, 591);
+            this.tabControl1.Size = new System.Drawing.Size(1127, 591);
             this.tabControl1.TabIndex = 0;
             // 
             // tabProjects
@@ -97,7 +97,7 @@
             this.tabProjects.Location = new System.Drawing.Point(4, 22);
             this.tabProjects.Name = "tabProjects";
             this.tabProjects.Padding = new System.Windows.Forms.Padding(3);
-            this.tabProjects.Size = new System.Drawing.Size(1154, 565);
+            this.tabProjects.Size = new System.Drawing.Size(1119, 565);
             this.tabProjects.TabIndex = 0;
             this.tabProjects.Text = "Projects";
             // 
@@ -107,12 +107,23 @@
             this.groupActions.Controls.Add(this.btnNewProject);
             this.groupActions.Controls.Add(this.btnNewTask);
             this.groupActions.ForeColor = System.Drawing.SystemColors.Control;
-            this.groupActions.Location = new System.Drawing.Point(927, 6);
+            this.groupActions.Location = new System.Drawing.Point(894, 6);
             this.groupActions.Name = "groupActions";
             this.groupActions.Size = new System.Drawing.Size(219, 358);
             this.groupActions.TabIndex = 8;
             this.groupActions.TabStop = false;
             this.groupActions.Text = "Actions";
+            // 
+            // btnAddChores
+            // 
+            this.btnAddChores.BackColor = System.Drawing.Color.Tomato;
+            this.btnAddChores.Location = new System.Drawing.Point(6, 123);
+            this.btnAddChores.Name = "btnAddChores";
+            this.btnAddChores.Size = new System.Drawing.Size(207, 47);
+            this.btnAddChores.TabIndex = 7;
+            this.btnAddChores.Text = "Add Everyday Chores";
+            this.btnAddChores.UseVisualStyleBackColor = false;
+            this.btnAddChores.Click += new System.EventHandler(this.btnAddChores_Click);
             // 
             // btnNewProject
             // 
@@ -174,7 +185,6 @@
             this.groupTaskInfo.Controls.Add(this.txtTaskEstimatedHours);
             this.groupTaskInfo.Controls.Add(this.btnMarkAsDone);
             this.groupTaskInfo.Controls.Add(this.btnAddToDaily);
-            this.groupTaskInfo.Controls.Add(this.btnMarkAsToDo);
             this.groupTaskInfo.Controls.Add(this.txtTaskSpentHours);
             this.groupTaskInfo.Controls.Add(this.btnSaveTask);
             this.groupTaskInfo.Controls.Add(this.txtTaskDescription);
@@ -182,7 +192,7 @@
             this.groupTaskInfo.ForeColor = System.Drawing.SystemColors.Control;
             this.groupTaskInfo.Location = new System.Drawing.Point(452, 240);
             this.groupTaskInfo.Name = "groupTaskInfo";
-            this.groupTaskInfo.Size = new System.Drawing.Size(460, 321);
+            this.groupTaskInfo.Size = new System.Drawing.Size(436, 321);
             this.groupTaskInfo.TabIndex = 2;
             this.groupTaskInfo.TabStop = false;
             this.groupTaskInfo.Text = "Task Information";
@@ -190,7 +200,7 @@
             // btnRemoveFromWeekly
             // 
             this.btnRemoveFromWeekly.BackColor = System.Drawing.Color.Tomato;
-            this.btnRemoveFromWeekly.Location = new System.Drawing.Point(229, 180);
+            this.btnRemoveFromWeekly.Location = new System.Drawing.Point(220, 178);
             this.btnRemoveFromWeekly.Name = "btnRemoveFromWeekly";
             this.btnRemoveFromWeekly.Size = new System.Drawing.Size(207, 47);
             this.btnRemoveFromWeekly.TabIndex = 23;
@@ -201,7 +211,7 @@
             // btnAddToWeekly
             // 
             this.btnAddToWeekly.BackColor = System.Drawing.Color.Tomato;
-            this.btnAddToWeekly.Location = new System.Drawing.Point(229, 131);
+            this.btnAddToWeekly.Location = new System.Drawing.Point(220, 127);
             this.btnAddToWeekly.Name = "btnAddToWeekly";
             this.btnAddToWeekly.Size = new System.Drawing.Size(207, 47);
             this.btnAddToWeekly.TabIndex = 22;
@@ -212,7 +222,7 @@
             // btnRemoveFromDaily
             // 
             this.btnRemoveFromDaily.BackColor = System.Drawing.Color.Tomato;
-            this.btnRemoveFromDaily.Location = new System.Drawing.Point(229, 68);
+            this.btnRemoveFromDaily.Location = new System.Drawing.Point(220, 69);
             this.btnRemoveFromDaily.Name = "btnRemoveFromDaily";
             this.btnRemoveFromDaily.Size = new System.Drawing.Size(207, 47);
             this.btnRemoveFromDaily.TabIndex = 21;
@@ -248,7 +258,7 @@
             // btnMarkAsDone
             // 
             this.btnMarkAsDone.BackColor = System.Drawing.Color.Tomato;
-            this.btnMarkAsDone.Location = new System.Drawing.Point(373, 245);
+            this.btnMarkAsDone.Location = new System.Drawing.Point(294, 259);
             this.btnMarkAsDone.Name = "btnMarkAsDone";
             this.btnMarkAsDone.Size = new System.Drawing.Size(63, 47);
             this.btnMarkAsDone.TabIndex = 11;
@@ -259,24 +269,13 @@
             // btnAddToDaily
             // 
             this.btnAddToDaily.BackColor = System.Drawing.Color.Tomato;
-            this.btnAddToDaily.Location = new System.Drawing.Point(229, 19);
+            this.btnAddToDaily.Location = new System.Drawing.Point(220, 19);
             this.btnAddToDaily.Name = "btnAddToDaily";
             this.btnAddToDaily.Size = new System.Drawing.Size(207, 47);
             this.btnAddToDaily.TabIndex = 6;
             this.btnAddToDaily.Text = "Add to Daily";
             this.btnAddToDaily.UseVisualStyleBackColor = false;
             this.btnAddToDaily.Click += new System.EventHandler(this.btnAddToDaily_Click);
-            // 
-            // btnMarkAsToDo
-            // 
-            this.btnMarkAsToDo.BackColor = System.Drawing.Color.Tomato;
-            this.btnMarkAsToDo.Location = new System.Drawing.Point(229, 246);
-            this.btnMarkAsToDo.Name = "btnMarkAsToDo";
-            this.btnMarkAsToDo.Size = new System.Drawing.Size(56, 47);
-            this.btnMarkAsToDo.TabIndex = 9;
-            this.btnMarkAsToDo.Text = "Mark as To Do";
-            this.btnMarkAsToDo.UseVisualStyleBackColor = false;
-            this.btnMarkAsToDo.Click += new System.EventHandler(this.btnMarkAsToDo_Click);
             // 
             // txtTaskSpentHours
             // 
@@ -313,6 +312,7 @@
             // 
             // groupProjectInfo
             // 
+            this.groupProjectInfo.Controls.Add(this.btnArchivedProject);
             this.groupProjectInfo.Controls.Add(this.groupProjectInfoMini);
             this.groupProjectInfo.Controls.Add(this.btnSaveProject);
             this.groupProjectInfo.Controls.Add(this.txtProjectDescription);
@@ -320,7 +320,7 @@
             this.groupProjectInfo.ForeColor = System.Drawing.SystemColors.Control;
             this.groupProjectInfo.Location = new System.Drawing.Point(452, 6);
             this.groupProjectInfo.Name = "groupProjectInfo";
-            this.groupProjectInfo.Size = new System.Drawing.Size(460, 228);
+            this.groupProjectInfo.Size = new System.Drawing.Size(436, 228);
             this.groupProjectInfo.TabIndex = 1;
             this.groupProjectInfo.TabStop = false;
             this.groupProjectInfo.Text = "Project Information";
@@ -334,7 +334,7 @@
             this.groupProjectInfoMini.ForeColor = System.Drawing.SystemColors.Control;
             this.groupProjectInfoMini.Location = new System.Drawing.Point(222, 14);
             this.groupProjectInfoMini.Name = "groupProjectInfoMini";
-            this.groupProjectInfoMini.Size = new System.Drawing.Size(232, 206);
+            this.groupProjectInfoMini.Size = new System.Drawing.Size(208, 153);
             this.groupProjectInfoMini.TabIndex = 13;
             this.groupProjectInfoMini.TabStop = false;
             this.groupProjectInfoMini.Text = "Info";
@@ -342,7 +342,7 @@
             // labelProjectHours
             // 
             this.labelProjectHours.AutoSize = true;
-            this.labelProjectHours.Location = new System.Drawing.Point(82, 38);
+            this.labelProjectHours.Location = new System.Drawing.Point(18, 31);
             this.labelProjectHours.Name = "labelProjectHours";
             this.labelProjectHours.Size = new System.Drawing.Size(59, 13);
             this.labelProjectHours.TabIndex = 8;
@@ -351,7 +351,7 @@
             // labelProjectTasksDone
             // 
             this.labelProjectTasksDone.AutoSize = true;
-            this.labelProjectTasksDone.Location = new System.Drawing.Point(90, 136);
+            this.labelProjectTasksDone.Location = new System.Drawing.Point(139, 57);
             this.labelProjectTasksDone.Name = "labelProjectTasksDone";
             this.labelProjectTasksDone.Size = new System.Drawing.Size(45, 13);
             this.labelProjectTasksDone.TabIndex = 12;
@@ -360,7 +360,7 @@
             // labelProjectPercentage
             // 
             this.labelProjectPercentage.AutoSize = true;
-            this.labelProjectPercentage.Location = new System.Drawing.Point(86, 60);
+            this.labelProjectPercentage.Location = new System.Drawing.Point(17, 57);
             this.labelProjectPercentage.Name = "labelProjectPercentage";
             this.labelProjectPercentage.Size = new System.Drawing.Size(48, 13);
             this.labelProjectPercentage.TabIndex = 9;
@@ -369,7 +369,7 @@
             // labelProjectTasksToDo
             // 
             this.labelProjectTasksToDo.AutoSize = true;
-            this.labelProjectTasksToDo.Location = new System.Drawing.Point(86, 113);
+            this.labelProjectTasksToDo.Location = new System.Drawing.Point(139, 31);
             this.labelProjectTasksToDo.Name = "labelProjectTasksToDo";
             this.labelProjectTasksToDo.Size = new System.Drawing.Size(49, 13);
             this.labelProjectTasksToDo.TabIndex = 10;
@@ -450,22 +450,22 @@
             this.tabCalendar.Text = "Calendar";
             this.tabCalendar.UseVisualStyleBackColor = true;
             // 
-            // btnAddChores
+            // btnArchivedProject
             // 
-            this.btnAddChores.BackColor = System.Drawing.Color.Tomato;
-            this.btnAddChores.Location = new System.Drawing.Point(6, 123);
-            this.btnAddChores.Name = "btnAddChores";
-            this.btnAddChores.Size = new System.Drawing.Size(207, 47);
-            this.btnAddChores.TabIndex = 7;
-            this.btnAddChores.Text = "Add Everyday Chores";
-            this.btnAddChores.UseVisualStyleBackColor = false;
-            this.btnAddChores.Click += new System.EventHandler(this.btnAddChores_Click);
+            this.btnArchivedProject.BackColor = System.Drawing.Color.Tomato;
+            this.btnArchivedProject.Location = new System.Drawing.Point(220, 173);
+            this.btnArchivedProject.Name = "btnArchivedProject";
+            this.btnArchivedProject.Size = new System.Drawing.Size(210, 47);
+            this.btnArchivedProject.TabIndex = 14;
+            this.btnArchivedProject.Text = "Archive";
+            this.btnArchivedProject.UseVisualStyleBackColor = false;
+            this.btnArchivedProject.Click += new System.EventHandler(this.btnArchivedProject_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1165, 592);
+            this.ClientSize = new System.Drawing.Size(1129, 592);
             this.Controls.Add(this.tabControl1);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -498,7 +498,6 @@
         private System.Windows.Forms.Button btnAddToDaily;
         private System.Windows.Forms.ListBox listToDo;
         private System.Windows.Forms.Button btnMarkAsDone;
-        private System.Windows.Forms.Button btnMarkAsToDo;
         private System.Windows.Forms.GroupBox groupTaskInfo;
         private System.Windows.Forms.GroupBox groupProjectInfo;
         private System.Windows.Forms.TextBox txtProjectName;
@@ -524,6 +523,7 @@
         private System.Windows.Forms.GroupBox groupActions;
         private System.Windows.Forms.GroupBox groupDailyWeekly;
         private System.Windows.Forms.Button btnAddChores;
+        private System.Windows.Forms.Button btnArchivedProject;
     }
 }
 

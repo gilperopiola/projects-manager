@@ -12,10 +12,13 @@ namespace Projects_Manager {
         public List<Task> daily;
         public List<Task> weekly;
 
+        public List<Project> archivedProjects;
+
         public Holder() {
             projects = new List<Project>();
             daily = new List<Task>();
             weekly = new List<Task>();
+            archivedProjects = new List<Project>();
         }
 
         public void Save() {

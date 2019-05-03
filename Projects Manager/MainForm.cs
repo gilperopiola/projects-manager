@@ -235,6 +235,12 @@ namespace Projects_Manager {
             }
         }
 
+        private void btnArchivedProject_Click(object sender, EventArgs e) {
+            holder.projects.Remove(selectedProject);
+            holder.archivedProjects.Add(selectedProject);
+            UIManager.Refresh(holder, null, selectedTask);
+        }
+
         #endregion
 
         #region Key Bindings
@@ -297,5 +303,6 @@ namespace Projects_Manager {
             return false;
         }
         #endregion
+
     }
 }
