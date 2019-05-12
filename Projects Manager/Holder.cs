@@ -69,5 +69,75 @@ namespace Projects_Manager {
         }
 
         #endregion
+
+        #region Project Functions
+        public void UpdateProject(Project project, string name, string description) {
+            project.name = name;
+            project.description = description;
+        }
+        #endregion
+
+        #region Task Functions
+        public void FinishTask(Task task) {
+            if (task.spentHours == 0) {
+                task.spentHours = task.estimatedHours;
+            }
+
+            task.project.tasksToDo.Remove(task);
+            task.project.tasksDone.Add(task);
+
+            if (daily.Contains(task)) {
+                daily.Remove(task);
+            }
+
+            if (weekly.Contains(task)) {
+                weekly.Remove(task);
+            }
+        }
+
+        public void UnfinishTask(Task task) {
+            task.project.tasksDone.Remove(task);
+            task.project.tasksToDo.Add(task);
+        }
+
+        public void UpdateTask(Task task, string name, string description, float spentHours, float estimatedHours) {
+            task.name = name;
+            task.description = description;
+            task.spentHours = spentHours;
+            task.estimatedHours = estimatedHours;
+        }
+
+        public void AddTaskToDaily(Task task) {
+            if (weekly.Contains(task)) {
+                weekly.Remove(task);
+            }
+
+            daily.Add(task);
+        }
+
+        public void RemoveTaskFromDaily(Task task) {
+            daily.Remove(task);
+        }
+
+        public void AddTaskToWeekly(Task task) {
+            if (daily.Contains(task)) {
+                daily.Remove(task);
+            }
+
+            weekly.Add(task);
+        }
+
+        public void RemoveTaskFromWeekly(Task task) {
+            weekly.Remove(task);
+        }
+
+        public void ArchiveProjectTasks(Project project) {
+            foreach (var task in project.tasksDone) {
+                project.tasksArchived.Add(task.DeepCopy());
+            }
+
+            project.tasksDone.Clear();
+        }
+        #endregion
     }
 }

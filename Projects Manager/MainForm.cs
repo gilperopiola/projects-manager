@@ -116,8 +116,7 @@ namespace Projects_Manager {
                 return;
             }
 
-            selectedProject.name = txtProjectName.Text;
-            selectedProject.description = txtProjectDescription.Text;
+            holder.UpdateProject(selectedProject, txtProjectName.Text, txtProjectDescription.Text);
 
             UIManager.Refresh(holder, selectedProject, selectedTask);
         }
@@ -127,47 +126,35 @@ namespace Projects_Manager {
                 return;
             }
 
-            selectedTask.name = txtTaskName.Text;
-            selectedTask.description = txtTaskDescription.Text;
-            selectedTask.spentHours = float.Parse(txtTaskSpentHours.Text);
-            selectedTask.estimatedHours = float.Parse(txtTaskEstimatedHours.Text);
+            holder.UpdateTask(selectedTask, txtTaskName.Text, txtTaskDescription.Text, float.Parse(txtTaskSpentHours.Text), float.Parse(txtTaskEstimatedHours.Text));
 
             UIManager.Refresh(holder, selectedProject, selectedTask);
         }
 
 
         private void btnMarkAsToDo_Click(object sender, EventArgs e) {
-            selectedTask.project.tasksDone.Remove(selectedTask);
-            selectedTask.project.tasksToDo.Add(selectedTask);
+            if (selectedTask == null) {
+                return;
+            }
+
+            holder.UnfinishTask(selectedTask);
 
             UIManager.Refresh(holder, selectedProject, selectedTask);
         }
 
         private void btnMarkAsDone_Click(object sender, EventArgs e) {
-            if (selectedTask.spentHours == 0) {
-                selectedTask.spentHours = selectedTask.estimatedHours;
+            if (selectedTask == null) {
+                return;
             }
 
-            selectedTask.project.tasksToDo.Remove(selectedTask);
-            selectedTask.project.tasksDone.Add(selectedTask);
-
-            if (holder.daily.Contains(selectedTask)) {
-                holder.daily.Remove(selectedTask);
-            }
-
-            if (holder.weekly.Contains(selectedTask)) {
-                holder.weekly.Remove(selectedTask);
-            }
+            holder.FinishTask(selectedTask);
 
             UIManager.Refresh(holder, selectedProject, selectedTask);
         }
 
         private void btnArchiveAllDone_Click(object sender, EventArgs e) {
-            foreach (var task in selectedProject.tasksDone) {
-                selectedProject.tasksArchived.Add(task.DeepCopy());
-            }
+            holder.ArchiveProjectTasks(selectedProject);
 
-            selectedProject.tasksDone.Clear();
             UIManager.Refresh(holder, selectedProject, selectedTask);
         }
 
@@ -176,20 +163,20 @@ namespace Projects_Manager {
                 return;
             }
 
-            holder.weekly.Remove(selectedTask);
-            holder.daily.Add(selectedTask);
+            holder.AddTaskToDaily(selectedTask);
+
             UIManager.Refresh(holder, selectedProject, selectedTask);
         }
 
 
         private void btnRemoveFromDaily_Click(object sender, EventArgs e) {
-            if (selectedTask == null) {
+            if (selectedTask == null || !holder.daily.Contains(selectedTask)) {
                 return;
             }
 
-            if (holder.daily.Remove(selectedTask)) {
-                UIManager.Refresh(holder, selectedProject, selectedTask);
-            }
+            holder.RemoveTaskFromDaily(selectedTask);
+
+            UIManager.Refresh(holder, selectedProject, selectedTask);
         }
 
         private void btnAddToWeekly_Click(object sender, EventArgs e) {
@@ -197,20 +184,20 @@ namespace Projects_Manager {
                 return;
             }
 
-            holder.daily.Remove(selectedTask);
-            holder.weekly.Add(selectedTask);
+            holder.AddTaskToWeekly(selectedTask);
+
             UIManager.Refresh(holder, selectedProject, selectedTask);
 
         }
 
         private void btnRemoveFromWeekly_Click(object sender, EventArgs e) {
-            if (selectedTask == null) {
+            if (selectedTask == null || !holder.weekly.Contains(selectedTask)) {
                 return;
             }
 
-            if (holder.weekly.Remove(selectedTask)) {
-                UIManager.Refresh(holder, selectedProject, selectedTask);
-            }
+            holder.RemoveTaskFromWeekly(selectedTask);
+
+            UIManager.Refresh(holder, selectedProject, selectedTask);
         }
 
         private void btnAddChores_Click(object sender, EventArgs e) {
@@ -303,6 +290,5 @@ namespace Projects_Manager {
             return false;
         }
         #endregion
-
     }
 }
